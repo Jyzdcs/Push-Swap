@@ -6,7 +6,7 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:19:59 by kclaudan          #+#    #+#             */
-/*   Updated: 2024/12/18 20:21:01 by kclaudan         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:51:16 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_list		*create_node_with_int(int nb)
 	return (tmp);
 }
 
-t_list		*initialize(char **values)
+t_list		*init_stack(char **values)
 {
 	t_list	*node;
 	t_list	*tmp;
@@ -43,10 +43,10 @@ t_list		*initialize(char **values)
 
 	if (!values)
 		return (NULL);
-	node = create_node_with_int(ft_atoi(values[1]));
+	node = create_node_with_int(ft_atoi(values[0]));
 	if (!node)
 		return (NULL);
-	i = 2;
+	i = 1;
 	while (values[i] != NULL)
 	{
 		tmp = create_node_with_int(ft_atoi(values[i]));
