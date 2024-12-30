@@ -6,11 +6,26 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:24:29 by kclaudan          #+#    #+#             */
-/*   Updated: 2024/12/19 17:06:40 by kclaudan         ###   ########.fr       */
+/*   Updated: 2024/12/29 17:44:16 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int		is_negative_num(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (ft_strlen(str) < 2 && str[i] == '-')
+		return (0);
+	while (str[++i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+	}
+	return (1);
+}
 
 int		check_str_content(char *str)
 {
@@ -20,7 +35,7 @@ int		check_str_content(char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return (0);
+				return (0);
 		i++;
 	}
 	return (1);
@@ -34,7 +49,10 @@ int		check_are_nums(char **inputs)
 	while (inputs[i])
 	{
 		if (!check_str_content(inputs[i]))
-			return (0);
+		{
+			if (!is_negative_num(inputs[i]))
+				return (0);
+		}
 		i++;
 	}
 	return (1);

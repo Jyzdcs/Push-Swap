@@ -6,23 +6,23 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:19:59 by kclaudan          #+#    #+#             */
-/*   Updated: 2024/12/19 15:51:16 by kclaudan         ###   ########.fr       */
+/*   Updated: 2024/12/29 16:28:10 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list		*free_stack(t_list *node, t_list *tmp)
+t_stack		*free_stack(t_stack *node, t_stack *tmp)
 {
 	ft_lstdelone(tmp, &free);
 	ft_lstclear(&node, free);
 	return (NULL);
 }
 
-t_list		*create_node_with_int(int nb)
+t_stack		*create_node_with_int(int nb)
 {
 	int		*nb_ptr;
-	t_list	*tmp;
+	t_stack	*tmp;
 
 	nb_ptr = malloc(sizeof(int));
 	if (!nb_ptr)
@@ -35,10 +35,10 @@ t_list		*create_node_with_int(int nb)
 	return (tmp);
 }
 
-t_list		*init_stack(char **values)
+t_stack		*init_stack(char **values)
 {
-	t_list	*node;
-	t_list	*tmp;
+	t_stack	*node;
+	t_stack	*tmp;
 	int		i;
 
 	if (!values)
