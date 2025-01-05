@@ -6,7 +6,7 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:52:04 by kclaudan          #+#    #+#             */
-/*   Updated: 2025/01/03 13:35:16 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:20:56 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,8 @@ int		sort_stack_of_three(t_stack **stack_a)
 	operations = 0;
 	max = ft_find_max(*stack_a);
 	while (*ft_lstlast(*stack_a)->content != *max->content)
-	{
-		operations++;
-		rab(stack_a);
-	}
+		operations += rab(stack_a, 'a');
 	if (!is_sorted(*stack_a))
-	{
-		operations++;
-		swap_top(stack_a);
-		printf("sa\n");
-	}
+		operations += swap_top(stack_a, 'a');
 	return (operations);
 }

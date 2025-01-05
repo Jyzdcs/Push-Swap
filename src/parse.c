@@ -6,7 +6,7 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:24:29 by kclaudan          #+#    #+#             */
-/*   Updated: 2024/12/29 17:44:16 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:22:01 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		check_are_nums(char **inputs)
 			if (!is_negative_num(inputs[i]))
 				return (0);
 		}
+		if (ft_atoi(inputs[i]) > 2147483647)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -70,7 +72,10 @@ int		check_num_duplicate(char **inputs)
 		while (inputs[j])
 		{
 			if (ft_atoi(inputs[j]) == ft_atoi(inputs[i]))
+			{
+				printf("DUPLICATES !!\n");
 				return (0);
+			}
 			j++;
 		}
 		i++;
