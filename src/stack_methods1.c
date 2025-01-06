@@ -6,15 +6,15 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:34:27 by kclaudan          #+#    #+#             */
-/*   Updated: 2025/01/06 19:42:17 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/06 23:55:58 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		swap_top(t_stack **top_a, char c, int dis)
+int	swap_top(t_stack **top_a, char c, int dis)
 {
-	t_stack		*tmp;
+	t_stack	*tmp;
 
 	if (dis)
 		ft_printf("s%c\n", c);
@@ -27,7 +27,7 @@ int		swap_top(t_stack **top_a, char c, int dis)
 	return (1);
 }
 
-int		ss(t_stack **top_a, t_stack **top_b)
+int	ss(t_stack **top_a, t_stack **top_b)
 {
 	swap_top(top_a, 'a', 0);
 	swap_top(top_b, 'b', 0);
@@ -35,7 +35,7 @@ int		ss(t_stack **top_a, t_stack **top_b)
 	return (1);
 }
 
-int		pa(t_stack **top_a, t_stack **top_b)
+int	pa(t_stack **top_a, t_stack **top_b)
 {
 	t_stack	*tmp_a;
 	t_stack	*tmp_b;
@@ -51,13 +51,13 @@ int		pa(t_stack **top_a, t_stack **top_b)
 	return (1);
 }
 
-int		pb(t_stack **top_a, t_stack **top_b)
+int	pb(t_stack **top_a, t_stack **top_b)
 {
 	t_stack	*tmp_a;
 	t_stack	*tmp_b;
 
 	if (!top_a)
-		return 0;
+		return (0);
 	ft_printf("pb\n");
 	tmp_a = *top_a;
 	tmp_b = *top_b;
@@ -67,7 +67,7 @@ int		pb(t_stack **top_a, t_stack **top_b)
 	return (1);
 }
 
-int		rab(t_stack **top, char c, int dis)
+int	rab(t_stack **top, char c, int dis)
 {
 	t_stack	*tmp;
 	t_stack	*last_node;

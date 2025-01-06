@@ -6,20 +6,20 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:19:59 by kclaudan          #+#    #+#             */
-/*   Updated: 2025/01/04 12:08:25 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/06 23:56:20 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack		*free_stack(t_stack *node, t_stack *tmp)
+t_stack	*free_stack(t_stack *node, t_stack *tmp)
 {
 	ft_lstdelone(tmp, &free);
 	ft_lstclear(&node, free);
 	return (NULL);
 }
 
-t_stack		*create_node_with_int(int nb)
+t_stack	*create_node_with_int(int nb)
 {
 	int		*nb_ptr;
 	t_stack	*tmp;
@@ -35,7 +35,7 @@ t_stack		*create_node_with_int(int nb)
 	return (tmp);
 }
 
-t_stack		*init_stack(char **values)
+t_stack	*init_stack(char **values)
 {
 	t_stack	*node;
 	t_stack	*tmp;

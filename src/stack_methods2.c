@@ -6,13 +6,13 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:42:24 by kclaudan          #+#    #+#             */
-/*   Updated: 2025/01/06 19:42:37 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/06 23:55:26 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		rr(t_stack **top_a, t_stack **top_b)
+int	rr(t_stack **top_a, t_stack **top_b)
 {
 	rab(top_a, 'a', 0);
 	rab(top_b, 'b', 0);
@@ -20,7 +20,7 @@ int		rr(t_stack **top_a, t_stack **top_b)
 	return (1);
 }
 
-int		rrab(t_stack **top, char c, int dis)
+int	rrab(t_stack **top, char c, int dis)
 {
 	t_stack	*prev;
 	t_stack	*curr;
@@ -35,14 +35,13 @@ int		rrab(t_stack **top, char c, int dis)
 		prev = curr;
 		curr = curr->next;
 	}
-
 	prev->next = NULL;
 	curr->next = *top;
 	*top = curr;
 	return (1);
 }
 
-int		rrr(t_stack **top_a, t_stack **top_b)
+int	rrr(t_stack **top_a, t_stack **top_b)
 {
 	rrab(top_a, 'a', 0);
 	rrab(top_b, 'b', 0);

@@ -6,13 +6,13 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:52:04 by kclaudan          #+#    #+#             */
-/*   Updated: 2025/01/05 17:48:19 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/06 23:54:54 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		is_sorted(t_stack *stack_a)
+int	is_sorted(t_stack *stack_a)
 {
 	while (stack_a && stack_a->next)
 	{
@@ -23,9 +23,9 @@ int		is_sorted(t_stack *stack_a)
 	return (1);
 }
 
-t_stack		*ft_find_max(t_stack *stack)
+t_stack	*ft_find_max(t_stack *stack)
 {
-	t_stack		*max;
+	t_stack	*max;
 
 	max = stack;
 	while (stack)
@@ -37,16 +37,16 @@ t_stack		*ft_find_max(t_stack *stack)
 	return (max);
 }
 
-int		ft_abs(int num)
+int	ft_abs(int num)
 {
 	if (num < 0)
 		return (-num);
 	return (num);
 }
 
-int		ft_lst_find(t_stack *stack, t_stack *node_to_find)
+int	ft_lst_find(t_stack *stack, t_stack *node_to_find)
 {
-	int		i;
+	int	i;
 
 	i = 1;
 	if (!stack)
@@ -61,10 +61,10 @@ int		ft_lst_find(t_stack *stack, t_stack *node_to_find)
 	return (-1);
 }
 
-int		sort_stack_of_three(t_stack **stack_a)
+int	sort_stack_of_three(t_stack **stack_a)
 {
-	t_stack		*max;
-	int			operations;
+	t_stack	*max;
+	int		operations;
 
 	operations = 0;
 	max = ft_find_max(*stack_a);

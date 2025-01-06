@@ -6,15 +6,15 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:24:29 by kclaudan          #+#    #+#             */
-/*   Updated: 2025/01/05 20:47:39 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/06 23:54:22 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		is_negative_num(char *str)
+int	is_negative_num(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (ft_strlen(str) < 2 && str[i] == '-')
@@ -27,23 +27,23 @@ int		is_negative_num(char *str)
 	return (1);
 }
 
-int		check_str_content(char *str)
+int	check_str_content(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-				return (0);
+			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int		check_are_nums(char **inputs)
+int	check_are_nums(char **inputs)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (inputs[i])
@@ -60,10 +60,10 @@ int		check_are_nums(char **inputs)
 	return (1);
 }
 
-int		check_num_duplicate(char **inputs)
+int	check_num_duplicate(char **inputs)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (inputs[i])
@@ -83,7 +83,7 @@ int		check_num_duplicate(char **inputs)
 	return (1);
 }
 
-int		check_inputs(char **inputs)
+int	check_inputs(char **inputs)
 {
 	if (!check_are_nums(inputs) || !check_num_duplicate(inputs))
 	{
