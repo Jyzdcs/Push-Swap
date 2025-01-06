@@ -6,7 +6,7 @@
 /*   By: kclaudan <kclaudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:08:30 by nax_lyk           #+#    #+#             */
-/*   Updated: 2025/01/05 15:07:23 by kclaudan         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:05:11 by kclaudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,38 @@ t_stack		*find_closest_bigger(t_stack *node_b, t_stack *stack_a)
 	return (closest_bigger);
 }
 
-int		count_operations(int size, int index, t_stack *node, t_stack *stack_b)
+int		count_operations(int size_a, int index_a, t_stack *node, t_stack *stack_b)
 {
-	int			nb_operations;
-	int			tmp_index;
+	int			ops_a;
+	int			ops_b;
+	int			index_b;
+	int			size_b;
 	t_stack		*closest_smallest;
 
-	nb_operations = 0;
-    if (index <= size / 2 + 1)
-        nb_operations += index - 1;
-    else
-        nb_operations += size - index + 1;
-	if (!node || !stack_b)
-		return (nb_operations);
+	ops_a = 0;
+	ops_b = 0;
+	size_b = ft_lstsize(stack_b);
 	closest_smallest = find_closest_smaller(node, stack_b);
-	tmp_index = ft_lst_find(stack_b, closest_smallest);
-	//if (tmp_index == index || (tmp_index == ft_lstsize(stack_b) && index >= tmp_index))
-	//	return (nb_operations);
-	nb_operations += count_operations(ft_lstsize(stack_b), tmp_index, NULL, NULL);
-	return (nb_operations);
+	index_b = ft_lst_find(stack_b, closest_smallest);
+	if (index_a <= size_a / 2 + 1)
+		ops_a = index_a - 1;
+	else
+		ops_a = size_a - index_a + 1;
+	if (index_b == index_a || (index_b == ft_lstsize(stack_b) && index_a >= index_b))
+		return (ops_a);
+	if (index_b <= size_b / 2 + 1)
+		ops_b = index_b - 1;
+	else
+		ops_b = size_b - index_b + 1;
+	if ((index_a <= size_a / 2 + 1 && index_b <= size_b / 2 + 1) ||
+		(index_a > size_a / 2 + 1 && index_b > size_b / 2 + 1))
+	{
+		if (ops_a >= ops_b)
+			return (ops_a);
+		else
+			return (ops_b);
+	}
+	return (ops_a + ops_b);
 }
 
 t_stack		*find_cheapest(t_stack *stack_a, t_stack *stack_b)
@@ -134,12 +147,10 @@ t_stack		*find_cheapest(t_stack *stack_a, t_stack *stack_b)
 	size = ft_lstsize(stack_a);
 	cheapest_operations = count_operations(size, index, stack_a, stack_b);
 	cheapest_node = stack_a;
-	printf("%d : %d\n", *stack_a->content, count_operations(size, index, stack_a, stack_b));
 	stack_a = stack_a->next;
 	while (stack_a)
 	{
 		index++;
-		printf("%d : %d\n", *stack_a->content, count_operations(size, index, stack_a, stack_b));
 		if (cheapest_operations > count_operations(size, index, stack_a, stack_b))
 		{
 			cheapest_operations = count_operations(size, index, stack_a, stack_b);
@@ -162,9 +173,9 @@ int		bring_target_to_top(t_stack *target, t_stack **stack_b)
 	while (target_i != 1)
 	{
 		if (target_i <= size_b / 2 + 1)
-			operations += rab(stack_b, 'b');
+			operations += rab(stack_b, 'b', 1);
 		else
-			operations += rrab(stack_b, 'b');
+			operations += rrab(stack_b, 'b', 1);
 		target_i = ft_lst_find(*stack_b, target);
 	}
 	return (operations);
@@ -173,24 +184,31 @@ int		bring_target_to_top(t_stack *target, t_stack **stack_b)
 int		bring_cheapest_to_top(t_stack *cheapest, t_stack **stack_b, t_stack **stack_a)
 {
 	int		cheapest_i;
-	int		target_i;
+	t_stack		*target;
 	int		operations;
 	int		size_a;
+	int		size_b;
 
+	target = find_closest_smaller(cheapest, *stack_b);
 	operations = 0;
 	cheapest_i = ft_lst_find(*stack_a, cheapest);
-	target_i = ft_lst_find(*stack_b, find_closest_smaller(cheapest, *stack_b));
 	size_a = ft_lstsize(*stack_a);
+	size_b = ft_lstsize(*stack_b);
 	while (cheapest_i != 1)
 	{
-
-		if (cheapest_i <= size_a / 2 + 1)
-			operations += rab(stack_a, 'a');
+		if (cheapest_i <= size_a / 2 + 1 &&
+			ft_lst_find(*stack_b, target) <= size_b / 2 + 1 &&
+			ft_lst_find(*stack_b, target) != 1)
+			operations += rr(stack_a, stack_b);
+		else if (cheapest_i > size_a / 2 + 1 && ft_lst_find(*stack_b, target) > size_b / 2 + 1)
+			operations += rrr(stack_a, stack_b);
+		else if (cheapest_i <= size_a / 2 + 1)
+			operations += rab(stack_a, 'a', 1);
 		else
-			operations += rrab(stack_a, 'a');
+			operations += rrab(stack_a, 'a', 1);
 		cheapest_i = ft_lst_find(*stack_a, cheapest);
 	}
-	operations += bring_target_to_top(find_closest_smaller(cheapest, *stack_b), stack_b);
+	operations += bring_target_to_top(target, stack_b);
 	operations += pb(stack_a, stack_b);
 	return (operations);
 }
@@ -209,21 +227,13 @@ int		push_back_stack_a(t_stack **stack_a, t_stack **stack_b)
 	while (target_i != 1)
 	{
 		if (target_i > size_a / 2 + 1)
-			operations += rrab(stack_a, 'a');
+			operations += rrab(stack_a, 'a', 1);
 		else
-			operations += rab(stack_a, 'a');
+			operations += rab(stack_a, 'a', 1);
 		target_i = ft_lst_find(*stack_a, closest_bigger);
 	}
 	operations += pa(stack_a, stack_b);
 	return (operations);
-}
-
-int		sort_small_stack(t_stack **stack_a)
-{
-	if (ft_lstsize(*stack_a) == 3)
-		return (sort_stack_of_three(stack_a));
-	else
-		return (swap_top(stack_a, 'a'));
 }
 
 int		sort_stack_a(t_stack **stack_a)
@@ -234,11 +244,30 @@ int		sort_stack_a(t_stack **stack_a)
 	while (!is_sorted(*stack_a))
 	{
 		if (ft_lst_find(*stack_a, ft_find_max(*stack_a)) < ft_lstsize(*stack_a) / 2 + 1)
-			operations += rab(stack_a, 'a');
+			operations += rab(stack_a, 'a', 1);
 		else
-			operations += rrab(stack_a, 'a');
+			operations += rrab(stack_a, 'a', 1);
 	}
 	return (operations);
+}
+
+int		sort_small_stack(t_stack **stack_a, t_stack **stack_b)
+{
+	int		operations;
+
+	operations = 0;
+	if (ft_lstsize(*stack_a) == 3)
+		return (sort_stack_of_three(stack_a));
+	else if (ft_lstsize(*stack_a) == 4)
+	{
+		operations += pb(stack_a, stack_b);
+		operations += sort_stack_of_three(stack_a);
+		operations += push_back_stack_a(stack_a, stack_b);
+		operations += sort_stack_a(stack_a);
+		return (operations);
+	}
+	else
+		return (swap_top(stack_a, 'a', 1));
 }
 
 int		turk_algo(t_stack **stack_a, t_stack **stack_b)
@@ -246,8 +275,8 @@ int		turk_algo(t_stack **stack_a, t_stack **stack_b)
 	int		operations;
 
 	operations = 0;
-	if (ft_lstsize(*stack_a) < 4)
-		return (sort_small_stack(stack_a));
+	if (ft_lstsize(*stack_a) < 5)
+		return (sort_small_stack(stack_a, stack_b));
 	else 
 	{
 		operations += pb(stack_a, stack_b);
@@ -260,20 +289,9 @@ int		turk_algo(t_stack **stack_a, t_stack **stack_b)
 		operations += sort_stack_of_three(stack_a);
 		while (ft_lstsize(*stack_b) != 0)
 			operations += push_back_stack_a(stack_a, stack_b);
-		sort_stack_a(stack_a);
-		
+		operations += sort_stack_a(stack_a);
 	}
 	return (operations);
-}
-
-int		numbers_counteur(char **inputs)
-{
-	int		i;
-
-	i = 0;
-	while (inputs[i])
-		i++;
-	return (i);
 }
 
 void	ft_push_swap(char **inputs)
@@ -290,18 +308,7 @@ void	ft_push_swap(char **inputs)
 		ft_lstclear(&stack_a, free);
 		return ;
 	}
-
-	t_stack		*tmp = init_stack(inputs);
-
-	// printf("%d\n", turk_algo(&stack_a, &stack_b));
-	printf("\n%d\n", turk_algo(&stack_a, &stack_b));
-	printf("\n-----\n");
-	print_stacks_content(tmp, stack_b);
-	printf("-AFTER-\n");
-	print_stacks_content(stack_a, stack_b);
-	// int i = 0;
-	// while (inputs[i])
-	// 	printf("%s ", inputs[i++]);
+	turk_algo(&stack_a, &stack_b);
 	ft_lstclear(&stack_a, free);
 	ft_lstclear(&stack_b, free);
 	return ;
@@ -309,7 +316,6 @@ void	ft_push_swap(char **inputs)
 
 int		main(__attribute__((unused))int ac, char **av)
 {
-	//printf("----------------------\n");
 	if (ac > 1)
 	{
 		if (!av[2])
