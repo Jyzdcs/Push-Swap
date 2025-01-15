@@ -108,6 +108,8 @@ int	main(__attribute__((unused))int ac, char **av)
 	{
 		if (!av[2])
 		{
+			if (!ft_strlen(av[1]))
+				return (0);
 			inputs = ft_split(av[1], ' ');
 			ft_push_swap(inputs);
 			free_all_ptr(inputs);
