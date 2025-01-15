@@ -72,10 +72,7 @@ int	check_num_duplicate(char **inputs)
 		while (inputs[j])
 		{
 			if (ft_atoi(inputs[j]) == ft_atoi(inputs[i]))
-			{
-				printf("DUPLICATES !!\n");
 				return (0);
-			}
 			j++;
 		}
 		i++;
