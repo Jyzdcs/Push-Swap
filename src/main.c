@@ -100,21 +100,24 @@ void	ft_push_swap(char **inputs)
 	return ;
 }
 
-int	main(__attribute__((unused))int ac, char **av)
-{
-	char	**inputs;
+// int	main(__attribute__((unused))int ac, char **av)
+// {
+// 	char	**inputs;
 
-	if (ac > 1)
-	{
-		if (!av[2])
-		{
-			if (!ft_strlen(av[1]))
-				return (0);
-			inputs = ft_split(av[1], ' ');
-			ft_push_swap(inputs);
-			free_all_ptr(inputs);
-		}
-		else
-			ft_push_swap(&av[1]);
-	}
-}
+// 	if (ac > 1)
+// 	{
+// 		if (!av[2])
+// 		{
+// 			inputs = ft_split(av[1], ' ');
+// 			if (!inputs[0])
+// 				free(inputs);
+// 			else
+// 			{
+// 				ft_push_swap(inputs);
+// 				free_all_ptr(inputs);
+// 			}
+// 		}
+// 		else
+// 			ft_push_swap(&av[1]);
+// 	}
+// }

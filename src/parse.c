@@ -53,7 +53,7 @@ int	check_are_nums(char **inputs)
 			if (!is_negative_num(inputs[i]))
 				return (0);
 		}
-		if (ft_atoi(inputs[i]) > INT_MAX)
+		if (ft_atoi(inputs[i]) > INT_MAX || ft_atoi(inputs[i]) < INT_MIN)
 			return (0);
 		i++;
 	}
