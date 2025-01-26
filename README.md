@@ -87,7 +87,3 @@ My algorithm allow a complete 125%, including the bonus part.
 # Bonus
 
 The program, named checker, takes a formatted list of integers as an argument representing stack A. If no argument is provided, it stops without displaying anything. The program reads instructions from the standard input, executes them on the given stack, and checks if, after execution, stack a is sorted and stack b is empty. If so, it outputs "OK"; otherwise, it outputs "KO". In case of errors such as non-integer arguments, integers exceeding the limit, duplicates, or incorrectly formatted instructions, it outputs "Error" on the standard error.
-
-# Credits
-
-* [**Contré Yavin**](https://github.com/TheRedShip) : Creator of the project.
